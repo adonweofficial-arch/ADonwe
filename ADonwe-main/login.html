@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <title>Admin Login | ADonWe</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    html, body { background-color: #050814; }
+    .auth-wrap {
+      min-height: 70vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 20px 60px;
+    }
+    .auth-card {
+      width: 100%; max-width: 420px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow-card);
+    }
+    .auth-card h1 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .auth-card p.auth-sub {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 24px;
+    }
+    .auth-card .form-group { margin-bottom: 16px; }
+    .auth-card input {
+      width: 100%; padding: 12px 14px;
+      background: var(--bg-card-2);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+    }
+    .auth-error {
+      display: none;
+      color: #f87171;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .auth-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0;
+      color: var(--text-muted); font-size: 0.8rem;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ""; flex: 1; height: 1px; background: var(--border-light);
+    }
+    .btn-google {
+      width: 100%; justify-content: center;
+      background: var(--bg-card-2);
+      border: 1px solid var(--border-light);
+      color: var(--text-primary);
+    }
+    .auth-continue {
+      display: block; text-align: center;
+      margin-top: 20px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body style="opacity:1;">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-ad">AD</span><span class="logo-on">on</span><span class="logo-me">We</span>
+        <span class="logo-tagline">outdoor</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="locations.html">Locations</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Admin Login</h1>
+      <p class="auth-sub">Staff only. You don't need an account to browse the site.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="you@adonwe.in" required autocomplete="username"/>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" placeholder="Password" required autocomplete="current-password"/>
+        </div>
+        <div class="auth-error" id="authError"></div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center; margin-top:8px;" id="submitBtn">
+          Sign In
+        </button>
+      </form>
+
+      <div class="auth-divider">or</div>
+
+      <button class="btn btn-google btn-lg" id="googleBtn">
+        <i class="fab fa-google"></i>&nbsp; Continue with Google
+      </button>
+
+      <a href="index.html" class="auth-continue">Continue browsing without an account &rarr;</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { signInEmail, signInGoogle, watchAuthState, isAdmin } from "./js/auth.js";
+
+    const form = document.getElementById("loginForm");
+    const errorBox = document.getElementById("authError");
+    const submitBtn = document.getElementById("submitBtn");
+    const googleBtn = document.getElementById("googleBtn");
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+
+    async function redirectAfterLogin(user) {
+      const params = new URLSearchParams(window.location.search);
+      const redirectTo = params.get("redirect") || "admin.html";
+      const adminUser = await isAdmin(user);
+      if (adminUser) {
+        window.location.href = redirectTo;
+      } else {
+        showError("This account is not authorized for the admin dashboard.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
+      }
+    }
+
+    // If already signed in, check admin access.
+    watchAuthState(async (user) => {
+      if (user) await redirectAfterLogin(user);
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorBox.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Signing in...";
+      try {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const cred = await signInEmail(email, password);
+        redirectAfterLogin(cred.user);
+      } catch (err) {
+        showError("Couldn't sign in — check your email and password and try again.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
+      }
+    });
+
+    googleBtn.addEventListener("click", async () => {
+      errorBox.style.display = "none";
+      try {
+        const cred = await signInGoogle();
+        redirectAfterLogin(cred.user);
+      } catch (err) {
+        showError("Google sign-in failed or was cancelled.");
+      }
+    });
+  </script>
+</body>
+</html>

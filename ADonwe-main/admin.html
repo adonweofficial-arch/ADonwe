@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <title>Dashboard | ADonWe</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    html, body { background-color: #050814; }
+    .admin-wrap {
+      min-height: 70vh;
+      padding: 100px 24px 60px;
+      max-width: 1080px;
+      margin: 0 auto;
+      color: var(--text-primary);
+    }
+    .admin-checking {
+      text-align: center;
+      padding: 160px 20px;
+      color: var(--text-secondary);
+    }
+    .dashboard-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .dashboard-header h1 {
+      margin: 8px 0 10px;
+      font-size: clamp(2rem, 2.5vw, 3rem);
+      color: var(--text-primary);
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #7f8bff;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+    .lead {
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.75;
+    }
+    .dashboard-actions button {
+      min-width: 160px;
+    }
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .dashboard-sidebar {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-profile {
+      display: grid;
+      gap: 12px;
+    }
+    .sidebar-profile p {
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .panel-nav {
+      display: grid;
+      gap: 10px;
+    }
+    .panel-nav button {
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+    .panel-nav button.active,
+    .panel-nav button:hover {
+      border-color: rgba(124, 87, 255, 0.5);
+      background: rgba(108,61,232,0.12);
+    }
+    .dashboard-main {
+      display: grid;
+      gap: 24px;
+    }
+    .content-panel {
+      display: none;
+    }
+    .content-panel.active {
+      display: block;
+    }
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .summary-card {
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.10);
+    }
+    .summary-card p {
+      margin: 0 0 14px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .summary-card strong {
+      display: block;
+      font-size: 2.35rem;
+      line-height: 1;
+      color: #ffffff;
+    }
+    .admin-panel-section {
+      margin-top: 0;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .panel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .panel-header h2 {
+      margin: 0;
+      color: var(--text-primary);
+    }
+    .panel-meta {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .admin-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 14px;
+      align-items: center;
+    }
+    .admin-form input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-primary);
+    }
+    .admin-form input::placeholder {
+      color: var(--text-secondary);
+    }
+    .error-message {
+      margin-top: 10px;
+      color: #f87171;
+      display: none;
+    }
+    .admin-list {
+      margin: 0;
+      padding-left: 22px;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+    .admin-list li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .admin-list button.remove-admin {
+      border: none;
+      background: rgba(255,120,113,0.12);
+      color: #ff8a72;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .admin-list button.remove-admin:hover {
+      transform: translateY(-1px);
+      background: rgba(255,120,113,0.18);
+    }
+    .submission-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .submission-group h3 {
+      margin: 0 0 14px;
+      color: var(--text-primary);
+      font-size: 1.15rem;
+    }
+    .submission-card {
+      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+    .submission-card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--text-primary);
+    }
+    .submission-card-header span {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .submission-card-body {
+      display: grid;
+      gap: 10px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .submission-card-body div strong {
+      color: var(--text-primary);
+    }
+    .empty-state {
+      color: var(--text-secondary);
+      padding: 28px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(255,255,255,0.08);
+    }
+    @media (max-width: 1024px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+      .dashboard-sidebar {
+        position: static;
+        top: auto;
+      }
+    }
+    @media (max-width: 880px) {
+      .dashboard-cards {
+        grid-template-columns: 1fr;
+      }
+      .admin-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body style="opacity:1;">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-ad">AD</span><span class="logo-on">on</span><span class="logo-me">We</span>
+        <span class="logo-tagline">outdoor</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Back to site</a></li>
+        <li><a href="#" id="signOutLink">Sign Out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="checkingState" class="admin-checking">Checking your session…</div>
+
+  <main class="admin-wrap" id="adminContent" style="display:none;">
+    <header class="dashboard-header">
+      <div>
+        <p class="eyebrow">Admin Console</p>
+        <h1>Welcome back, <span id="userEmail"></span></h1>
+        <p class="lead">Manage admins, review submissions, and monitor your platform from one secure console.</p>
+      </div>
+      <div class="dashboard-actions">
+        <button id="refreshBtn" class="btn btn-secondary">Refresh data</button>
+      </div>
+    </header>
+
+    <div class="dashboard-layout">
+      <aside class="dashboard-sidebar" aria-label="Admin navigation">
+        <div class="sidebar-profile">
+          <p><strong>Admin Console</strong></p>
+          <p>Use the sidebar to switch between sections. Only authorized staff can access this page.</p>
+        </div>
+        <div class="panel-nav">
+          <button data-panel="overviewPanel" class="active">Overview</button>
+          <button data-panel="adminsPanel">Admins</button>
+          <button data-panel="submissionsPanel">Submissions</button>
+          <button data-panel="locationsPanel">Locations</button>
+        </div>
+      </aside>
+
+      <section class="dashboard-main">
+        <section id="overviewPanel" class="content-panel active">
+          <div class="dashboard-cards" aria-label="Overview summary cards">
+            <article class="card summary-card">
+              <p>Total admins</p>
+              <strong id="adminCount">0</strong>
+            </article>
+            <article class="card summary-card">
+              <p>Total inquiries</p>
+              <strong id="submissionCount">0</strong>
+            </article>
+            <article class="card summary-card">
+              <p>Latest inquiry</p>
+              <strong id="latestSubmission">None yet</strong>
+            </article>
+          </div>
+          <div class="admin-panel-section">
+            <div class="panel-header">
+              <div>
+                <h2>Quick actions</h2>
+                <p class="panel-meta">Add a new admin or review the latest request quickly.</p>
+              </div>
+            </div>
+            <form id="addAdminForm" class="admin-form">
+              <input id="newAdminEmail" type="email" placeholder="new.admin@adonwe.in" required />
+              <button type="submit" class="btn btn-primary btn-lg">Add Admin</button>
+            </form>
+            <div id="adminFormError" class="error-message" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="adminsPanel" class="content-panel">
+          <div class="admin-panel-section">
+            <div class="panel-header">
+              <div>
+                <h2>Admin management</h2>
+                <p id="adminApiStatus" class="panel-meta">Verifying admin backend connection…</p>
+              </div>
+            </div>
+            <ul id="adminList" class="admin-list"></ul>
+          </div>
+        </section>
+
+        <section id="submissionsPanel" class="content-panel">
+          <div class="admin-panel-section">
+            <div class="panel-header">
+              <div>
+                <h2>Contact submissions</h2>
+                <p id="submissionStatus" class="panel-meta">Loading contact submissions…</p>
+              </div>
+            </div>
+            <div id="submissionContainer" class="submission-grid"></div>
+          </div>
+        </section>
+
+        <section id="locationsPanel" class="content-panel">
+          <div class="admin-panel-section">
+            <div class="panel-header">
+              <div>
+                <h2>Locations management</h2>
+                <p id="locationStatus" class="panel-meta">Loading cities and locations…</p>
+              </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; margin-top: 20px;">
+              <!-- Add Location Form -->
+              <div>
+                <h3 style="margin-top:0; margin-bottom:16px;">Add/Modify City</h3>
+                <form id="addLocationForm" style="display: flex; flex-direction: column; gap: 14px;">
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locId" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">City ID / Slug (lowercase, e.g. "gaya") *</label>
+                    <input id="locId" type="text" placeholder="e.g. gaya" required style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:#fff;" />
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locName" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">City Name *</label>
+                    <input id="locName" type="text" placeholder="e.g. Gaya" required style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:#fff;" />
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locStatus" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">Status *</label>
+                    <select id="locStatus" required style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:#0f172a; color:#fff;">
+                      <option value="soon">Coming Soon (soon)</option>
+                      <option value="live">Active Now (live)</option>
+                    </select>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locTagline" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">Tagline / Description *</label>
+                    <textarea id="locTagline" placeholder="Short description of locations..." required rows="3" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:#fff; font-family:inherit;"></textarea>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locStats" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">Stats (comma-separated, e.g. "100+ Sites, 1.2M+ Pop.")</label>
+                    <input id="locStats" type="text" placeholder="e.g. 100+ Sites, 1.2M+ Pop." style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:#fff;" />
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locImage" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">Image Path *</label>
+                    <input id="locImage" type="text" placeholder="e.g. images/city_gaya.png" required value="images/city_gaya.png" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:#fff;" />
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="locOrder" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">Display Order (number, e.g. 3) *</label>
+                    <input id="locOrder" type="number" placeholder="e.g. 3" required value="1" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:#fff;" />
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="margin-top:10px;">Save City</button>
+                  <div id="locationFormError" class="error-message" aria-live="polite"></div>
+                </form>
+              </div>
+              
+              <!-- Existing Locations List -->
+              <div>
+                <h3 style="margin-top:0; margin-bottom:16px;">Active Cities List</h3>
+                <div id="locationContainer" style="display: flex; flex-direction: column; gap: 14px;">
+                  <!-- Dynamically Rendered -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script type="module">
+    import { watchAuthState, isAdmin, listAdmins, listSubmissions, addAdmin, removeAdmin, signOutUser, listLocations, addLocation, removeLocation } from "./js/auth.js";
+
+    const checking = document.getElementById("checkingState");
+    const content = document.getElementById("adminContent");
+    const apiStatus = document.getElementById("adminApiStatus");
+    const adminList = document.getElementById("adminList");
+    const addAdminForm = document.getElementById("addAdminForm");
+    const newAdminEmail = document.getElementById("newAdminEmail");
+    const adminFormError = document.getElementById("adminFormError");
+    const submissionStatus = document.getElementById("submissionStatus");
+    const submissionContainer = document.getElementById("submissionContainer");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const adminCount = document.getElementById("adminCount");
+    const submissionCount = document.getElementById("submissionCount");
+    const latestSubmission = document.getElementById("latestSubmission");
+    const locationStatus = document.getElementById("locationStatus");
+    const locationContainer = document.getElementById("locationContainer");
+    const addLocationForm = document.getElementById("addLocationForm");
+    const locationFormError = document.getElementById("locationFormError");
+
+    function setLocationError(message) {
+      if (!locationFormError) return;
+      locationFormError.textContent = message;
+      locationFormError.style.display = message ? "block" : "none";
+    }
+
+    function setError(message) {
+      adminFormError.textContent = message;
+      adminFormError.style.display = message ? "block" : "none";
+    }
+
+    function renderAdmins(admins) {
+      adminCount.textContent = admins.length;
+      adminList.innerHTML = admins
+        .map(
+          (admin) =>
+            `<li>${admin.email} <button data-email="${admin.email}" class="remove-admin">Remove</button></li>`
+        )
+        .join("");
+    }
+
+    function renderSubmissions(submissions) {
+      submissionCount.textContent = submissions.length;
+      if (!submissions || submissions.length === 0) {
+        latestSubmission.textContent = "None yet";
+        submissionContainer.innerHTML = `<p class="empty-state">No submissions have arrived yet.</p>`;
+        return;
+      }
+
+      const sorted = [...submissions].sort((a, b) => {
+        const aTime = a.createdAt?.seconds || 0;
+        const bTime = b.createdAt?.seconds || 0;
+        return bTime - aTime;
+      });
+
+      latestSubmission.textContent = sorted[0].fullName || "Recent inquiry";
+
+      const grouped = sorted.reduce((acc, item) => {
+        const key = item.iType || "Uncategorized";
+        acc[key] = acc[key] || [];
+        acc[key].push(item);
+        return acc;
+      }, {});
+
+      submissionContainer.innerHTML = Object.entries(grouped)
+        .map(([category, items]) => {
+          const rows = items
+            .map((item) => {
+              const created = item.createdAt?.seconds
+                ? new Date(item.createdAt.seconds * 1000).toLocaleString()
+                : "-";
+              return `
+                <article class="submission-card">
+                  <div class="submission-card-header">
+                    <div><strong>${item.fullName}</strong></div>
+                    <span>${created}</span>
+                  </div>
+                  <div class="submission-card-body">
+                    <div><strong>Company:</strong> ${item.company || "Not provided"}</div>
+                    <div><strong>Email:</strong> ${item.email}</div>
+                    <div><strong>Phone:</strong> ${item.phone}</div>
+                    <div><strong>City:</strong> ${item.city}</div>
+                    <div><strong>Service:</strong> ${item.service || "Any"}</div>
+                    <div><strong>Budget:</strong> ${item.budget || "Not provided"}</div>
+                    <div><strong>Message:</strong> ${item.message}</div>
+                  </div>
+                </article>`;
+            })
+            .join("");
+          return `
+            <section class="submission-group">
+              <h3>${category} (${items.length})</h3>
+              ${rows}
+            </section>`;
+        })
+        .join("");
+    }
+
+    async function refreshAdmins() {
+      try {
+        const result = await listAdmins();
+        apiStatus.textContent = `Admin backend connected. ${result.admins.length} admin(s) found.`;
+        renderAdmins(result.admins);
+      } catch (err) {
+        apiStatus.textContent = `Admin backend error: ${err.message}`;
+        console.warn("Admin backend load failed:", err);
+      }
+    }
+
+    async function refreshSubmissions() {
+      try {
+        const result = await listSubmissions();
+        submissionStatus.textContent = `Loaded ${result.submissions.length} submission(s).`;
+        renderSubmissions(result.submissions);
+      } catch (err) {
+        submissionStatus.textContent = `Unable to load submissions: ${err.message}`;
+        submissionContainer.innerHTML = "";
+        console.warn("Submission load failed:", err);
+      }
+    }
+
+    function renderLocations(locations) {
+      if (!locations || locations.length === 0) {
+        locationContainer.innerHTML = `<p class="empty-state">No locations have been added yet.</p>`;
+        return;
+      }
+      locationContainer.innerHTML = locations.map((loc) => {
+        const statsStr = loc.stats ? loc.stats.join(", ") : "None";
+        const statusBadge = loc.status === "live" 
+          ? `<span style="background:rgba(34,197,94,0.15); color:#4ade80; font-size:0.75rem; padding:4px 8px; border-radius:50px; font-weight:600;">Active Now</span>`
+          : `<span style="background:rgba(234,179,8,0.15); color:#facc15; font-size:0.75rem; padding:4px 8px; border-radius:50px; font-weight:600;">Coming Soon</span>`;
+        
+        return `
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius:14px; display:flex; justify-content:space-between; align-items:center; gap:16px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <strong style="font-size:1.05rem;">${loc.name}</strong> 
+                <span style="font-size:0.8rem; color:var(--text-secondary);">(${loc.id})</span>
+                ${statusBadge}
+              </div>
+              <p style="margin:6px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.4;">${loc.tagline}</p>
+              <div style="font-size:0.8rem; color:var(--text-secondary);">
+                <strong>Stats:</strong> ${statsStr} &middot; <strong>Order:</strong> ${loc.order || 0}
+              </div>
+            </div>
+            <button data-id="${loc.id}" class="remove-location" style="border:none; background:rgba(255,120,113,0.12); color:#ff8a72; padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:600; font-size:0.8rem; flex-shrink:0;">
+              Remove
+            </button>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function refreshLocations() {
+      if (!locationStatus || !locationContainer) return;
+      try {
+        const locations = await listLocations();
+        locationStatus.textContent = `Loaded ${locations.length} city/cities.`;
+        renderLocations(locations);
+      } catch (err) {
+        locationStatus.textContent = `Unable to load locations: ${err.message}`;
+        locationContainer.innerHTML = "";
+        console.warn("Locations load failed:", err);
+      }
+    }
+
+    async function refreshDashboard() {
+      setError("");
+      setLocationError("");
+      await Promise.all([refreshAdmins(), refreshSubmissions(), refreshLocations()]);
+    }
+
+    function setActivePanel(panelId) {
+      const normalizedPanelId = panelId.endsWith("Panel") ? panelId : `${panelId}Panel`;
+      document.querySelectorAll(".content-panel").forEach((section) => {
+        section.classList.toggle("active", section.id === normalizedPanelId);
+      });
+      document.querySelectorAll(".panel-nav button").forEach((button) => {
+        const btnPanel = button.dataset.panel || "";
+        const normalizedBtnPanel = btnPanel.endsWith("Panel") ? btnPanel : `${btnPanel}Panel`;
+        button.classList.toggle("active", normalizedBtnPanel === normalizedPanelId);
+      });
+    }
+
+    addAdminForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setError("");
+      const email = newAdminEmail.value.trim();
+      if (!email) {
+        setError("Enter a valid email address.");
+        return;
+      }
+
+      try {
+        await addAdmin(email);
+        newAdminEmail.value = "";
+        await refreshDashboard();
+        setActivePanel("adminsPanel");
+      } catch (err) {
+        setError(err.message);
+      }
+    });
+
+    adminList.addEventListener("click", async (event) => {
+      const button = event.target.closest("button.remove-admin");
+      if (!button) return;
+
+      const email = button.dataset.email;
+      if (!email || !confirm(`Remove admin ${email}?`)) return;
+
+      try {
+        await removeAdmin(email);
+        await refreshDashboard();
+      } catch (err) {
+        setError(err.message);
+      }
+    });
+
+    if (addLocationForm) {
+      addLocationForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setLocationError("");
+        const id = document.getElementById("locId").value.trim().toLowerCase();
+        const name = document.getElementById("locName").value.trim();
+        const status = document.getElementById("locStatus").value;
+        const tagline = document.getElementById("locTagline").value.trim();
+        const statsRaw = document.getElementById("locStats").value.trim();
+        const image = document.getElementById("locImage").value.trim();
+        const order = parseInt(document.getElementById("locOrder").value) || 0;
+
+        if (!id || !name || !tagline || !image) {
+          setLocationError("All fields marked * are required.");
+          return;
+        }
+
+        const stats = statsRaw ? statsRaw.split(",").map(s => s.trim()) : [];
+
+        try {
+          await addLocation(id, { name, status, tagline, stats, image, order });
+          addLocationForm.reset();
+          document.getElementById("locImage").value = "images/city_gaya.png";
+          document.getElementById("locOrder").value = "1";
+          await refreshDashboard();
+        } catch (err) {
+          setLocationError(err.message);
+        }
+      });
+    }
+
+    if (locationContainer) {
+      locationContainer.addEventListener("click", async (event) => {
+        const button = event.target.closest("button.remove-location");
+        if (!button) return;
+
+        const id = button.dataset.id;
+        if (!id || !confirm(`Remove city "${id}"? This will remove it from the homepage and dropdowns.`)) return;
+
+        try {
+          await removeLocation(id);
+          await refreshDashboard();
+        } catch (err) {
+          setLocationError(err.message);
+        }
+      });
+    }
+
+    document.querySelectorAll(".panel-nav button").forEach((button) => {
+      button.addEventListener("click", () => {
+        setActivePanel(button.dataset.panel);
+      });
+    });
+
+    refreshBtn.addEventListener("click", async () => {
+      refreshBtn.disabled = true;
+      refreshBtn.textContent = "Refreshing…";
+      await refreshDashboard();
+      refreshBtn.disabled = false;
+      refreshBtn.textContent = "Refresh data";
+    });
+
+    watchAuthState(async (user) => {
+      if (!user || !(await isAdmin(user))) {
+        window.location.href = "login.html?redirect=admin.html";
+        return;
+      }
+      document.getElementById("userEmail").textContent = user.email;
+      await refreshDashboard();
+      checking.style.display = "none";
+      content.style.display = "block";
+    });
+
+    document.getElementById("signOutLink").addEventListener("click", async (e) => {
+      e.preventDefault();
+      await signOutUser();
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ADonWe – Bihar's premier digital billboard & outdoor advertising company. Dominate every street in Patna, Muzaffarpur, Gaya & beyond."/>
+  <title>ADonWe | Bihar's #1 Billboard Advertising Company</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Critical CSS: prevents black flash on hard refresh -->
+  <style>
+    html, body { background-color: #050814; }
+    body { opacity: 0; transition: opacity 0.4s ease; }
+    .hero { background: #050814; }
+    .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(108,61,232,0.25) 0%, transparent 60%), linear-gradient(180deg, #050814 0%, #0a0e1f 100%); }
+    /* Solid fallbacks — identical to style.css, render instantly before fonts/CSS load */
+    .accent { color: #ff9a00; -webkit-text-fill-color: #ff9a00; }
+    .logo-me { color: #ff9a00; -webkit-text-fill-color: #ff9a00; }
+    .highlight-text { transform: translateZ(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-ad">AD</span><span class="logo-on">on</span><span class="logo-me">We</span>
+        <span class="logo-tagline">outdoor</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="locations.html">Locations</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html#brands" class="nav-cta">Get Started</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="hero-particles" id="heroParticles"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Now Live in Patna
+      </div>
+      <h1 class="hero-title">
+        <span class="line1">Your Brand.</span>
+        <span class="line2">Every <span class="highlight-text">Street.</span></span>
+        <span class="line3">Every <span class="highlight-text">Eye.</span></span>
+      </h1>
+      <p class="hero-desc">Bihar's most sophisticated outdoor advertising network. From towering highways to metro passages — we place your message where it matters most.</p>
+      <div class="hero-actions">
+        <a href="services.html" class="btn btn-primary" id="exploreServicesBtn">
+          <i class="fas fa-th-large"></i> Explore Services
+        </a>
+        <a href="contact.html" class="btn btn-outline" id="getQuoteBtn">
+          <i class="fas fa-paper-plane"></i> Get a Quote
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number" data-target="500">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Billboard Spots</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="8">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Cities in Bihar</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="2">0</span><span class="stat-suffix">M+</span>
+          <span class="stat-label">Daily Impressions</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="300">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Brand Partners</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <!--<span>Scroll to explore</span>-->
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE BAND -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <span>Billboard Advertising</span><span class="dot">◆</span>
+      <span>Metro Station Ads</span><span class="dot">◆</span>
+      <span>Residential Complex Displays</span><span class="dot">◆</span>
+      <span>Gym &amp; Fitness Centers</span><span class="dot">◆</span>
+      <span>Mall Branding</span><span class="dot">◆</span>
+      <span>Highway Hoardings</span><span class="dot">◆</span>
+      <span>Digital LED Boards</span><span class="dot">◆</span>
+      <span>Transit Advertising</span><span class="dot">◆</span>
+      <span>Billboard Advertising</span><span class="dot">◆</span>
+      <span>Metro Station Ads</span><span class="dot">◆</span>
+      <span>Residential Complex Displays</span><span class="dot">◆</span>
+      <span>Gym &amp; Fitness Centers</span><span class="dot">◆</span>
+      <span>Mall Branding</span><span class="dot">◆</span>
+      <span>Highway Hoardings</span><span class="dot">◆</span>
+    </div>
+  </div>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="section services-preview" id="services-preview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What We Offer</span>
+        <h2 class="section-title">One Network. <span class="accent">Infinite Reach.</span></h2>
+        <p class="section-desc">From massive highway hoardings to intimate gym displays — ADonWe covers every touchpoint of your customer's journey.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card featured" data-service="billboard">
+          <div class="service-card-img">
+            <img src="images/service_billboard.png" alt="Billboard Advertising Bihar" loading="lazy"/>
+          </div>
+          <div class="service-card-body">
+            <div class="service-icon-wrap"><i class="fas fa-rectangle-ad"></i></div>
+            <h3>Billboards &amp; Hoardings</h3>
+            <p>Dominate skylines with our premium large-format hoardings across major intersections, highways, and key city arteries.</p>
+            <div class="service-specs">
+              <span><i class="fas fa-expand-arrows-alt"></i> Up to 60×20 ft</span>
+              <span><i class="fas fa-eye"></i> 500K+ daily views</span>
+            </div>
+            <a href="services.html#billboard" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="service-card" data-service="metro">
+          <div class="service-card-img">
+            <img src="images/service_metro.png" alt="Metro Transit Ads Bihar" loading="lazy"/>
+          </div>
+          <div class="service-card-body">
+            <div class="service-icon-wrap"><i class="fas fa-train-subway"></i></div>
+            <h3>Metro &amp; Transit Ads</h3>
+            <p>Captivate daily commuters inside metro stations, bus shelters, and transit corridors with high-dwell-time displays.</p>
+            <div class="service-specs">
+              <span><i class="fas fa-users"></i> Captive audience</span>
+              <span><i class="fas fa-clock"></i> High dwell time</span>
+            </div>
+            <a href="services.html#metro" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="service-card" data-service="residential">
+          <div class="service-card-img">
+            <img src="images/service_residential.png" alt="Residential Complex Ads" loading="lazy"/>
+          </div>
+          <div class="service-card-body">
+            <div class="service-icon-wrap"><i class="fas fa-building"></i></div>
+            <h3>Residential Complexes</h3>
+            <p>Reach affluent households in gated communities and residential towers with targeted lifestyle advertising.</p>
+            <div class="service-specs">
+              <span><i class="fas fa-home"></i> Premium localities</span>
+              <span><i class="fas fa-chart-line"></i> High conversion</span>
+            </div>
+            <a href="services.html#residential" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="service-card" data-service="gym">
+          <div class="service-card-img">
+            <img src="images/service_gym.png" alt="Gym Fitness Advertising" loading="lazy"/>
+          </div>
+          <div class="service-card-body">
+            <div class="service-icon-wrap"><i class="fas fa-dumbbell"></i></div>
+            <h3>Gym &amp; Fitness</h3>
+            <p>Partner with top gyms to display your brand to health-conscious, high-engagement audiences during peak hours.</p>
+            <div class="service-specs">
+              <span><i class="fas fa-fire"></i> High engagement</span>
+              <span><i class="fas fa-user-check"></i> Quality leads</span>
+            </div>
+            <a href="services.html#gym" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="service-card" data-service="mall">
+          <div class="service-card-img">
+            <img src="images/service_mall.png" alt="Mall Retail Advertising Bihar" loading="lazy"/>
+          </div>
+          <div class="service-card-body">
+            <div class="service-icon-wrap"><i class="fas fa-store"></i></div>
+            <h3>Mall &amp; Retail Spaces</h3>
+            <p>Premium in-mall digital displays and static banners that convert browsers into buyers at the point of decision.</p>
+            <div class="service-specs">
+              <span><i class="fas fa-shopping-bag"></i> Point-of-sale</span>
+              <span><i class="fas fa-tags"></i> Retail audience</span>
+            </div>
+            <a href="services.html#mall" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="service-card" data-service="digital">
+          <div class="service-card-img">
+            <img src="images/service_digital_led.png" alt="Digital LED Screen Advertising" loading="lazy"/>
+          </div>
+          <div class="service-card-body">
+            <div class="service-icon-wrap"><i class="fas fa-tv"></i></div>
+            <h3>Digital LED Screens</h3>
+            <p>State-of-the-art LED digital boards with remote content management, dynamic ads &amp; real-time campaign switching.</p>
+            <div class="service-specs">
+              <span><i class="fas fa-bolt"></i> Dynamic content</span>
+              <span><i class="fas fa-wifi"></i> Remote managed</span>
+            </div>
+            <a href="services.html#digital" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+      <div class="section-cta">
+        <a href="services.html" class="btn btn-primary" id="viewAllServicesBtn">View All Services <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ADONWE -->
+  <section class="section why-us" id="why-us">
+    <div class="container">
+      <div class="why-inner">
+        <div class="why-left">
+          <span class="section-tag">Why ADonWe</span>
+          <h2 class="section-title">Bihar's Most <span class="accent">Trusted</span> Outdoor Network</h2>
+          <p>We're not just an advertising company — we're Bihar's story architects. Our deep-rooted local knowledge combined with world-class infrastructure means your campaign hits exactly where it should.</p>
+          <div class="why-features">
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-map-pin"></i></div>
+              <div>
+                <h4>Strategic Locations</h4>
+                <p>Every spot is data-selected for maximum footfall and brand visibility.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+              <div>
+                <h4>Measurable Impact</h4>
+                <p>Detailed campaign analytics and footfall reports delivered monthly.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-headset"></i></div>
+              <div>
+                <h4>Dedicated Support</h4>
+                <p>A personal account manager for every client — always reachable.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+              <div>
+                <h4>End-to-End Service</h4>
+                <p>From design consultation to installation and maintenance — we handle it all.</p>
+              </div>
+            </div>
+          </div>
+          <a href="about.html" class="btn btn-outline" id="aboutUsBtn">Discover Our Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="why-right">
+          <div class="why-visual">
+            <div class="visual-card card-1">
+              <i class="fas fa-eye"></i>
+              <span>2M+ Daily Eyes</span>
+            </div>
+            <div class="visual-card card-2">
+              <i class="fas fa-city"></i>
+              <span>8 Major Cities</span>
+            </div>
+            <div class="visual-card card-3">
+              <i class="fas fa-award"></i>
+              <span>#1 in Bihar</span>
+            </div>
+            <div class="visual-ring ring-1"></div>
+            <div class="visual-ring ring-2"></div>
+            <div class="visual-center">
+              <span class="logo-ad">AD</span><span class="logo-on">on</span><span class="logo-me">We</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS PREVIEW -->
+  <section class="section locations-preview" id="locations-preview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Our Presence</span>
+        <h2 class="section-title">Bihar's <span class="accent">Biggest Cities.</span> <br/>We're There.</h2>
+        <p class="section-desc">Launching in Patna and rapidly expanding across Bihar's major urban centers.</p>
+      </div>
+      <div class="cities-grid">
+
+        <div class="city-card featured-city" id="patnaCard">
+          <img class="city-bg-img" src="images/city_patna.png" alt="Patna City Bihar"/>
+          <div class="city-overlay">
+            <div class="city-badge">Launching Now</div>
+            <div class="city-info">
+              <h3>Patna</h3>
+              <p>Bihar's capital — our flagship city with 200+ premium locations across Bailey Road, Boring Road, Fraser Road, and beyond.</p>
+              <div class="city-stats">
+                <span><i class="fas fa-map-marker-alt"></i> 200+ Sites</span>
+                <span><i class="fas fa-users"></i> 2.5M+ Pop.</span>
+              </div>
+              <a href="locations.html#patna" class="city-link">Explore Patna <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="city-card" id="muzCard">
+          <img class="city-bg-img" src="images/city_muzaffarpur.png" alt="Muzaffarpur Bihar"/>
+          <div class="city-overlay">
+            <div class="city-info">
+              <h3>Muzaffarpur</h3>
+              <p>North Bihar's commercial hub — premium visibility across main market and commercial zones.</p>
+              <a href="locations.html#muzaffarpur" class="city-link">Coming Soon <i class="fas fa-clock"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="city-card" id="gayaCard">
+          <img class="city-bg-img" src="images/city_gaya.png" alt="Gaya Bodh Gaya Bihar"/>
+          <div class="city-overlay">
+            <div class="city-info">
+              <h3>Gaya</h3>
+              <p>High-footfall spiritual &amp; tourism city with year-round visitor traffic from across India.</p>
+              <a href="locations.html#gaya" class="city-link">Coming Soon <i class="fas fa-clock"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="city-card" id="patliputraCard">
+          <img class="city-bg-img" src="images/city_patliputra.png" alt="Patliputra Township Bihar"/>
+          <div class="city-overlay">
+            <div class="city-info">
+              <h3>Patliputra</h3>
+              <p>Rapidly growing township district with premium residential and commercial developments.</p>
+              <a href="locations.html#patliputra" class="city-link">Coming Soon <i class="fas fa-clock"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="city-card" id="bhagalpurCard">
+          <img class="city-bg-img" src="images/city_bhagalpur.png" alt="Bhagalpur Silk City Bihar"/>
+          <div class="city-overlay">
+            <div class="city-info">
+              <h3>Bhagalpur</h3>
+              <p>Silk city with growing commercial activity and strong retail advertising potential.</p>
+              <a href="locations.html#bhagalpur" class="city-link">Coming Soon <i class="fas fa-clock"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="city-card more-cities" id="moreCitiesCard">
+          <img class="city-bg-img" src="images/city_morecities.png" alt="More Cities Bihar"/>
+          <div class="city-overlay">
+            <div class="city-info">
+              <h3>+More Cities</h3>
+              <p>Darbhanga, Purnia, Ara, Buxar, Chhapra and more — watch us grow.</p>
+              <a href="locations.html" class="city-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION TEASER -->
+  <section class="section vision-teaser" id="vision-teaser">
+    <div class="vision-bg"></div>
+    <div class="container">
+      <div class="vision-inner">
+        <div class="vision-icon"><i class="fas fa-rocket"></i></div>
+        <span class="section-tag">Our Vision</span>
+        <h2 class="vision-title">Turning Bihar's Streets Into <span class="accent">Brand Stories</span></h2>
+        <p class="vision-desc">We envision a Bihar where every brand — big or emerging — has access to world-class outdoor advertising infrastructure. ADonWe is building the most expansive, data-driven, and creatively powerful OOH network the state has ever seen.</p>
+        <a href="about.html#vision" class="btn btn-primary" id="visionBtn">Read Our Vision <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT TYPES -->
+  <section class="section clients-section" id="clients-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Who We Serve</span>
+        <h2 class="section-title">Built for <span class="accent">Every Advertiser</span></h2>
+        <p class="section-desc">Whether you're a global brand or a local startup, ADonWe has a tailored outdoor solution for you.</p>
+      </div>
+      <div class="clients-grid">
+
+        <div class="client-card" id="brandsCard">
+          <div class="client-card-img">
+            <img src="images/client_brands.png" alt="Brand Advertising Solutions" loading="lazy"/>
+            <div class="client-card-overlay"></div>
+          </div>
+          <div class="client-card-content">
+            <div class="client-icon"><i class="fas fa-gem"></i></div>
+            <h3>Brands</h3>
+            <p>National &amp; international brands seeking high-visibility outdoor campaigns across Bihar's key markets.</p>
+            <div class="client-tags">
+              <span>Multi-city Campaigns</span>
+              <span>Brand Impact Reports</span>
+              <span>Dedicated Manager</span>
+            </div>
+            <a href="contact.html#brands" class="btn btn-primary client-btn">Start Campaign <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="client-card" id="agencyCard">
+          <div class="client-card-img">
+            <img src="images/client_agency.png" alt="Media Agency Partnership" loading="lazy"/>
+            <div class="client-card-overlay"></div>
+          </div>
+          <div class="client-card-content">
+            <div class="client-icon" style="background: linear-gradient(135deg,#06B6D4,#0891b2);"><i class="fas fa-briefcase"></i></div>
+            <h3>Agencies</h3>
+            <p>Creative and media agencies looking for reliable OOH inventory and execution partners in Bihar.</p>
+            <div class="client-tags">
+              <span>Agency Rate Pricing</span>
+              <span>White-label Reports</span>
+              <span>Inventory Portal</span>
+            </div>
+            <a href="contact.html#agency" class="btn btn-primary client-btn">Partner With Us <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="client-card" id="propertyCard">
+          <div class="client-card-img">
+            <img src="images/client_property.png" alt="Property Owner Monetization" loading="lazy"/>
+            <div class="client-card-overlay"></div>
+          </div>
+          <div class="client-card-content">
+            <div class="client-icon" style="background: linear-gradient(135deg,#22c55e,#16a34a);"><i class="fas fa-building-columns"></i></div>
+            <h3>Property Owners</h3>
+            <p>Monetize your prime walls, rooftops &amp; facades by partnering with ADonWe — guaranteed monthly rental income.</p>
+            <div class="client-tags">
+              <span>Guaranteed Rental</span>
+              <span>We Install</span>
+              <span>Zero Effort</span>
+            </div>
+            <a href="contact.html#property" class="btn btn-primary client-btn">List My Property <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="client-card" id="localCard">
+          <div class="client-card-img">
+            <img src="images/client_localbiz.png" alt="Local Business Advertising" loading="lazy"/>
+            <div class="client-card-overlay"></div>
+          </div>
+          <div class="client-card-content">
+            <div class="client-icon" style="background: linear-gradient(135deg,#a855f7,#7c3aed);"><i class="fas fa-store-alt"></i></div>
+            <h3>Local Businesses</h3>
+            <p>Small &amp; medium businesses ready to make a big local impact with affordable, neighborhood-targeted campaigns.</p>
+            <div class="client-tags">
+              <span>Starter Packs</span>
+              <span>Area Targeting</span>
+              <span>Design Support</span>
+            </div>
+            <a href="contact.html#local" class="btn btn-primary client-btn">Get Visible <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section final-cta" id="final-cta">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-glow"></div>
+        <div class="cta-content">
+          <p class="cta-pre">Ready to amplify your brand?</p>
+          <h2 class="cta-title">Take Your Idea to <span class="cta-brand">ADonWe</span></h2>
+          <p class="cta-desc">Let's put your brand where Bihar looks — every morning, every evening, every mile.</p>
+          <div class="cta-actions">
+            <a href="contact.html" class="btn btn-primary btn-lg" id="ctaContactBtn">
+              <i class="fas fa-paper-plane"></i> Start Your Campaign
+            </a>
+            <a href="tel:+91 xxxxxxxxxx" class="btn btn-glass btn-lg" id="ctaCallBtn">
+              <i class="fas fa-phone"></i> Call Us Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo footer-logo">
+            <span class="logo-ad">AD</span><span class="logo-on">on</span><span class="logo-me">We</span>
+            <span class="logo-tagline">outdoor</span>
+          </a>
+          <p>Bihar's most trusted outdoor advertising company. We transform streets into brand experiences.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram" id="igLink"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook" id="fbLink"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="LinkedIn" id="liLink"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Twitter/X" id="twLink"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#billboard">Billboards &amp; Hoardings</a></li>
+            <li><a href="services.html#metro">Metro &amp; Transit Ads</a></li>
+            <li><a href="services.html#residential">Residential Complexes</a></li>
+            <li><a href="services.html#gym">Gym &amp; Fitness</a></li>
+            <li><a href="services.html#mall">Mall &amp; Retail</a></li>
+            <li><a href="services.html#digital">Digital LED Screens</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="about.html#vision">Our Vision</a></li>
+            <li><a href="about.html#team">Our Team</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Cities</h4>
+          <ul>
+            <li><a href="locations.html#patna">Patna</a></li>
+            <li><a href="locations.html#muzaffarpur">Muzaffarpur</a></li>
+            <li><a href="locations.html#gaya">Gaya</a></li>
+            <li><a href="locations.html#patliputra">Patliputra</a></li>
+            <li><a href="locations.html#bhagalpur">Bhagalpur</a></li>
+            <li><a href="locations.html">All Cities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="contact.html#brands">For Brands</a></li>
+            <li><a href="contact.html#agency">For Agencies</a></li>
+            <li><a href="contact.html#property">For Property Owners</a></li>
+            <li><a href="contact.html#local">For Local Businesses</a></li>
+            <li><a href="mailto:hello@adonWe.in">hello@adonWe.in</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ADonWe Outdoor Pvt. Ltd. All rights reserved.</p>
+        <p class="footer-tagline">Take Your Idea to <strong>ADonWe</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/homepage-content.js"></script>
+</body>
+</html>
+

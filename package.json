@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "firebase": "^12.17.0",
+    "firebase-admin": "^11.9.0"
+  },
+  "scripts": {
+    "admin:connect": "node admin-service.js"
+  }
+}

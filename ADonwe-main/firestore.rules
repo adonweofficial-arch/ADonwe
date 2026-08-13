@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Multi-admin allow-list backed by Firestore instead of a hardcoded
+    // list, so staff can be granted/revoked access without redeploying
+    // rules. Doc ID = the staff member's exact Firebase Auth email.
+    // e.g. admins/Adonweofficial@gmail.com  { addedAt: <timestamp> }
+    // For larger teams, custom claims (request.auth.token.admin == true)
+    // set via a Cloud Function scale better, but this is enough for a
+    // handful of staff and needs no backend.
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.token.email));
+    }
+
+    // Only an existing admin can grant/revoke other admins.
+    match /admins/{adminEmail} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Cities shown in the homepage "Our Presence" section.
+    match /locations/{locationId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Services shown in the homepage "What We Offer" section.
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Dynamic pages loaded via page.html?slug=...
+    // Anyone can read a page once it's published; the admin can read drafts
+    // too (for previewing before publishing) and is the only one who can write.
+    match /pages/{pageId} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Contact form submissions submitted by visitors.
+    match /submissions/{submissionId} {
+      allow create: if true;
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Deny everything else by default.
+    match /{document=**} {
+      allow read: if false;
+      allow write: if false;
+    }
+  }
+}
