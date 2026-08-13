@@ -83,21 +83,23 @@ h1, h2, h3, h4, h5 {
 }
 
 .accent {
-  /* Solid vivid gold — reliable across all browsers, no refresh flicker */
   color: #ff9a00;
-  -webkit-text-fill-color: #ff9a00;
 }
 
 .highlight-text {
-  /* Original gradient style restored */
-  background: linear-gradient(135deg, #ff9a00, #ff9a00);
+  color: #ff9a00;
+  background: linear-gradient(135deg, #ffb700, #ff8800);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
-  /* Force GPU layer to prevent flicker */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .highlight-text {
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 /* === BUTTONS === */
@@ -249,9 +251,9 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-heading);
   font-weight: 900;
   font-size: 1.8rem;
-  color: #fff;
+  color: #ffffff;
   letter-spacing: -1px;
-  text-shadow: 0 0 20px rgba(193, 168, 255, 0.103), 0 0 40px rgba(139, 92, 246, 0.5);
+  text-shadow: 0 0 20px rgba(193, 168, 255, 0.2), 0 0 40px rgba(139, 92, 246, 0.5);
 }
 
 .logo-on {
@@ -265,11 +267,9 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-heading);
   font-weight: 900;
   font-size: 1.8rem;
-  /* Solid amber gold — no background-clip flicker */
   color: #ff9a00;
-  -webkit-text-fill-color: c;
   letter-spacing: -1px;
-  text-shadow: 0 0 18px rgba(245, 159, 11, 0.226);
+  text-shadow: 0 0 18px rgba(245, 159, 11, 0.3);
 }
 
 .logo-tagline {
@@ -425,9 +425,9 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 28px;
 }
 
-.hero-title .line1 { display: block; color: var(--text-secondary); animation: fadeInLeft 0.9s 0.2s ease both; }
-.hero-title .line2 { display: block; color: var(--text-primary); animation: fadeInLeft 0.9s 0.4s ease both; }
-.hero-title .line3 { display: block; color: var(--text-primary); animation: fadeInLeft 0.9s 0.6s ease both; }
+.hero-title .line1 { display: block; color: var(--text-secondary); opacity: 1; }
+.hero-title .line2 { display: block; color: var(--text-primary); opacity: 1; }
+.hero-title .line3 { display: block; color: var(--text-primary); opacity: 1; }
 
 .hero-desc {
   font-size: 1.2rem;
@@ -435,7 +435,7 @@ h1, h2, h3, h4, h5 {
   max-width: 580px;
   margin-bottom: 44px;
   line-height: 1.75;
-  animation: fadeInLeft 0.9s 0.8s ease both;
+  opacity: 1;
 }
 
 .hero-actions {
@@ -443,7 +443,7 @@ h1, h2, h3, h4, h5 {
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 64px;
-  animation: fadeInLeft 0.9s 1s ease both;
+  opacity: 1;
 }
 
 /* Hero Stats */
@@ -451,7 +451,7 @@ h1, h2, h3, h4, h5 {
   display: flex;
   gap: 0;
   align-items: center;
-  animation: fadeInLeft 0.9s 1.2s ease both;
+  opacity: 1;
 }
 
 .stat-item {
@@ -465,10 +465,16 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-heading);
   font-size: 2.4rem;
   font-weight: 900;
+  color: var(--accent);
   background: linear-gradient(135deg, var(--primary-light), var(--accent));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .stat-number {
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .stat-suffix {
@@ -1677,14 +1683,19 @@ h1, h2, h3, h4, h5 {
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
 .reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.js-loaded .reveal:not(.visible) {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(24px);
 }
 
 .reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* =========================================

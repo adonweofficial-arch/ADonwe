@@ -12,13 +12,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <!-- Critical CSS: prevents black flash on hard refresh -->
   <style>
-    html, body { background-color: #050814; }
-    body { opacity: 0; transition: opacity 0.4s ease; }
+    html, body { background-color: #050814; opacity: 1 !important; }
     .hero { background: #050814; }
     .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(108,61,232,0.25) 0%, transparent 60%), linear-gradient(180deg, #050814 0%, #0a0e1f 100%); }
-    /* Solid fallbacks — identical to style.css, render instantly before fonts/CSS load */
-    .accent { color: #ff9a00; -webkit-text-fill-color: #ff9a00; }
-    .logo-me { color: #ff9a00; -webkit-text-fill-color: #ff9a00; }
+    .accent { color: #ff9a00; }
+    .logo-me { color: #ff9a00; }
     .highlight-text { transform: translateZ(0); }
   </style>
 </head>
