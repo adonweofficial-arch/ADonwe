@@ -1,7 +1,4 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/ADonwe-main/index.html" },
-    { "source": "/:path*", "destination": "/ADonwe-main/:path*" }
-  ]
+  "outputDirectory": "ADonwe-main",
+  "cleanUrls": true
 }
